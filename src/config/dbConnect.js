@@ -1,7 +1,4 @@
 import mongoose, { mongo } from 'mongoose'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 async function conectaDatabase() {
   const username = process.env.DB_USERNAME
