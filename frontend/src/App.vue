@@ -1,60 +1,53 @@
+Claro, você pode adicionar uma imagem ao cabeçalho do seu aplicativo Vue.js. Aqui está como você pode modificar o arquivo App.vue para incluir a imagem livrariaTuring.jpeg ao lado do nome da livraria:
+
+<!-- src/App.vue -->
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
+    <v-app-bar app color="primary" dark>
+      <v-img
+        src="./assets/livrariaTuring.jpeg"
+        max-height="50"
+        max-width="50"
+        class="mr-2"
+      ></v-img>
+      <v-toolbar-title>Livraria Turing</v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <BookForm @book-added="fetchBooks" />
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <v-container fluid>
+        <BookList ref="bookList" />
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import BookList from "./components/BookList.vue";
+import BookForm from "./components/BookForm.vue";
 
 export default {
-  name: 'App',
-
+  name: "App",
   components: {
-    HelloWorld,
+    BookList,
+    BookForm,
   },
-
-  data: () => ({
-    //
-  }),
+  methods: {
+    fetchBooks() {
+      this.$refs.bookList.fetchBooks();
+    },
+  },
 };
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
