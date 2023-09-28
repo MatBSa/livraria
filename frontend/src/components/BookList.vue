@@ -57,7 +57,20 @@ export default {
 </script>
 
 <style scoped>
+body {
+  background-color: rgb(248, 249, 250);
+}
+
 .v-card {
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 200px;
+}
+
+.v-card-title {
+  align-self: center;
 }
 </style>
