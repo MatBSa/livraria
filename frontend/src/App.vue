@@ -51,4 +51,4 @@ export default {
   margin-top: 60px;
 }
 </style>
-// Deve ser possível também o usuário buscar por um livro pelo ID do livro, essa deve usar o endpoint '/livros/buscar/:id' do tipo get que retorna a um único json com o mesmo formato de campos da listagem de livros. Também deve criar uma página ou modal para que o usuário possa editar os dados do livro e que deve usar o endpoint '/livros/atualizar/:id' do tipo put. Por fim, também deve ser criada uma página ou modal para que o usuário possa remover o livro da livraria usando o endpoint '/livros/remover/:id' do tipo delete. Gere os arquivos do projeto desse frontend, levando em consideração que o backend já está pronto e com os endpoints que foram fornecidos.
+// Também deve criar uma página ou modal para que o usuário possa editar os dados do livro e que deve usar o endpoint '/livros/atualizar/:id' do tipo put. Por fim, também deve ser criada uma página ou modal para que o usuário possa remover o livro da livraria usando o endpoint '/livros/remover/:id' do tipo delete. Gere os arquivos do projeto desse frontend, levando em consideração que o backend já está pronto e com os endpoints que foram fornecidos.

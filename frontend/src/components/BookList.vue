@@ -6,18 +6,25 @@
         sm="6"
         md="4"
         lg="3"
-        v-for="book in books"
+        v-for="(book, index) in books"
         :key="book.id"
       >
-        <v-card max-width="400">
-          <v-card-title>{{ book.titulo }}</v-card-title>
-          <v-card-subtitle>{{ book.editora }}</v-card-subtitle>
-          <v-card-text>
+        <v-card :id="`book-card-${index}`" max-width="400">
+          <v-card-title :id="`book-title-${index}`">{{
+            book.titulo
+          }}</v-card-title>
+          <v-card-subtitle :id="`book-editora-${index}`">{{
+            book.editora
+          }}</v-card-subtitle>
+          <v-card-text :id="`book-text-${index}`">
             Preço: {{ book.preco }}<br />
             Páginas: {{ book.paginas }}
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" @click="openBookModal(book._id)"
+            <v-btn
+              :id="`more-info-btn-${index}`"
+              color="primary"
+              @click="openBookModal(book._id)"
               >Mais Informações</v-btn
             >
           </v-card-actions>
@@ -27,8 +34,8 @@
 
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
-        <v-card-title>{{ book.titulo }}</v-card-title>
-        <v-card-text>
+        <v-card-title id="modal-book-title">{{ book.titulo }}</v-card-title>
+        <v-card-text id="modal-book-text">
           <p>Editora: {{ book.editora }}</p>
           <p>Preço: {{ book.preco }}</p>
           <p>Páginas: {{ book.paginas }}</p>
