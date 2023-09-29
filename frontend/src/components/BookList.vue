@@ -16,10 +16,31 @@
             Preço: {{ book.preco }}<br />
             Páginas: {{ book.paginas }}
           </v-card-text>
-          <!-- Você pode adicionar botões ou outras ações aqui -->
+          <v-card-actions>
+            <v-btn color="primary" @click="openBookModal(book._id)"
+              >Mais Informações</v-btn
+            >
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>{{ book.titulo }}</v-card-title>
+        <v-card-text>
+          <p>Editora: {{ book.editora }}</p>
+          <p>Preço: {{ book.preco }}</p>
+          <p>Páginas: {{ book.paginas }}</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false"
+            >Fechar</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -31,6 +52,8 @@ export default {
   data() {
     return {
       books: [],
+      dialog: false,
+      book: {},
       headers: [
         { text: "Título", value: "titulo" },
         { text: "Editora", value: "editora" },
@@ -44,6 +67,16 @@ export default {
       BookService.getBooks()
         .then((response) => {
           this.books = response.data;
+        })
+        .catch((error) => {
+          console.log("There was an error:", error.response);
+        });
+    },
+    openBookModal(id) {
+      BookService.getBook(id)
+        .then((response) => {
+          this.book = response.data;
+          this.dialog = true;
         })
         .catch((error) => {
           console.log("There was an error:", error.response);
