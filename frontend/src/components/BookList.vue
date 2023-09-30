@@ -30,7 +30,7 @@
               :id="`more-info-btn-${index}`"
               color="blue darken-1"
               text
-              @click="openBookModal(book._id)"
+              @click="openBookModal(book)"
               plain
             >
               Mais Informações
@@ -40,33 +40,17 @@
       </v-col>
     </v-row>
 
-    <v-dialog v-model="dialog" max-width="500">
-      <v-card>
-        <v-card-title class="headline">{{ book.titulo }}</v-card-title>
-
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col>
-                <p><strong>Editora:</strong> {{ book.editora }}</p>
-                <p><strong>Preço:</strong> {{ book.preco }}</p>
-                <p><strong>Páginas:</strong> {{ book.paginas }}</p>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Fechar</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <book-info-modal
+      :book="selectedBook"
+      :dialog="dialog"
+      @update:dialog="updateDialog"
+      @dialog-closed="handleDialogClosed"
+    />
   </div>
 </template>
 
 <script>
+import BookInfoModal from "@/components/BookInfoModal.vue";
 import BookService from "@/services/BookService.js";
 
 export default {
@@ -75,14 +59,11 @@ export default {
     return {
       books: [],
       dialog: false,
-      book: {},
-      headers: [
-        { text: "Título", value: "titulo" },
-        { text: "Editora", value: "editora" },
-        { text: "Preço", value: "preco" },
-        { text: "Páginas", value: "paginas" },
-      ],
+      selectedBook: null,
     };
+  },
+  components: {
+    BookInfoModal,
   },
   methods: {
     fetchBooks() {
@@ -91,18 +72,18 @@ export default {
           this.books = response.data;
         })
         .catch((error) => {
-          console.log("There was an error:", error.response);
+          console.error("Error fetching books:", error);
         });
     },
-    openBookModal(id) {
-      BookService.getBook(id)
-        .then((response) => {
-          this.book = response.data;
-          this.dialog = true;
-        })
-        .catch((error) => {
-          console.log("There was an error:", error.response);
-        });
+    openBookModal(book) {
+      this.selectedBook = book;
+      this.dialog = true;
+    },
+    updateDialog(value) {
+      this.dialog = value;
+    },
+    handleDialogClosed() {
+      this.dialog = false;
     },
   },
   created() {
@@ -130,5 +111,13 @@ export default {
 
 .v-card-text {
   flex-grow: 1;
+}
+
+.info-button {
+  cursor: pointer;
+}
+
+.info-button:hover {
+  text-decoration: underline;
 }
 </style>
