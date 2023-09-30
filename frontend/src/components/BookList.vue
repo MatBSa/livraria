@@ -28,9 +28,10 @@
           <v-card-actions class="mt-auto">
             <v-btn
               :id="`more-info-btn-${index}`"
-              color="primary"
+              color="blue darken-1"
+              text
               @click="openBookModal(book._id)"
-              class="info-button"
+              plain
             >
               Mais Informações
             </v-btn>
@@ -129,10 +130,5 @@ export default {
 
 .v-card-text {
   flex-grow: 1;
-}
-
-.info-button {
-  margin-top: auto;
-  margin-bottom: 0;
 }
 </style>
