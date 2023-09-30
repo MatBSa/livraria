@@ -39,6 +39,13 @@
                 type="number"
               ></v-text-field>
             </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="book.autor"
+                label="ID do Autor"
+                type="number"
+              ></v-text-field>
+            </v-col>
           </v-row>
         </v-container>
       </v-card-text>
@@ -68,10 +75,17 @@ export default {
         editora: "",
         preco: 0,
         paginas: 0,
+        autor: null,
       };
     },
     save() {
-      const jsonPayload = JSON.stringify(this.book);
+      const jsonPayload = JSON.stringify({
+        titulo: this.book.titulo,
+        editora: this.book.editora,
+        preco: this.book.preco,
+        paginas: this.book.paginas,
+        autor: this.book.autor,
+      });
 
       BookService.postBook(jsonPayload)
         .then(() => {

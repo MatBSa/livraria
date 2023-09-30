@@ -9,8 +9,7 @@
       ></v-img>
       <v-toolbar-title>Livraria Turing</v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <BookForm @book-added="fetchBooks" /> -->
-      <!-- O botão para cadastro de livro foi comentado -->
+      <BookForm @book-added="fetchBooks" />
     </v-app-bar>
 
     <v-main>
@@ -23,13 +22,13 @@
 
 <script>
 import BookList from "./components/BookList.vue";
-// import BookForm from "./components/BookForm.vue";  // Botão para cadastro de livro foi comentado
+import BookForm from "./components/BookForm.vue";
 
 export default {
   name: "App",
   components: {
     BookList,
-    // BookForm  // Botão para cadastro de livro foi comentado
+    BookForm,
   },
   methods: {
     fetchBooks() {
@@ -49,4 +48,5 @@ export default {
   margin-top: 60px;
 }
 </style>
+
 // Também deve criar uma página ou modal para que o usuário possa editar os dados do livro e que deve usar o endpoint '/livros/atualizar/:id' do tipo put. Por fim, também deve ser criada uma página ou modal para que o usuário possa remover o livro da livraria usando o endpoint '/livros/remover/:id' do tipo delete. Gere os arquivos do projeto desse frontend, levando em consideração que o backend já está pronto e com os endpoints que foram fornecidos.
