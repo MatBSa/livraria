@@ -1,6 +1,3 @@
-Claro, você pode adicionar uma imagem ao cabeçalho do seu aplicativo Vue.js. Aqui está como você pode modificar o arquivo App.vue para incluir a imagem livrariaTuring.jpeg ao lado do nome da livraria:
-
-<!-- src/App.vue -->
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
@@ -12,7 +9,8 @@ Claro, você pode adicionar uma imagem ao cabeçalho do seu aplicativo Vue.js. A
       ></v-img>
       <v-toolbar-title>Livraria Turing</v-toolbar-title>
       <v-spacer></v-spacer>
-      <BookForm @book-added="fetchBooks" />
+      <!-- <BookForm @book-added="fetchBooks" /> -->
+      <!-- O botão para cadastro de livro foi comentado -->
     </v-app-bar>
 
     <v-main>
@@ -25,13 +23,13 @@ Claro, você pode adicionar uma imagem ao cabeçalho do seu aplicativo Vue.js. A
 
 <script>
 import BookList from "./components/BookList.vue";
-import BookForm from "./components/BookForm.vue";
+// import BookForm from "./components/BookForm.vue";  // Botão para cadastro de livro foi comentado
 
 export default {
   name: "App",
   components: {
     BookList,
-    BookForm,
+    // BookForm  // Botão para cadastro de livro foi comentado
   },
   methods: {
     fetchBooks() {
