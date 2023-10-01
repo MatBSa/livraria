@@ -25,15 +25,6 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
-                v-model.number="book.preco"
-                label="Preço"
-                required
-                type="number"
-                prefix="R$ "
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
                 v-model.number="book.paginas"
                 label="Páginas"
                 type="number"
@@ -76,7 +67,6 @@ export default {
       return {
         titulo: "",
         editora: "",
-        preco: 0,
         paginas: 0,
         autor: null,
       };
@@ -85,7 +75,6 @@ export default {
       const jsonPayload = JSON.stringify({
         titulo: this.book.titulo,
         editora: this.book.editora,
-        preco: this.book.preco,
         paginas: this.book.paginas,
         autor: this.book.autor,
       });
