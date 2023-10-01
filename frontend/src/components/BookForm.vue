@@ -40,11 +40,13 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
+              <v-select
                 v-model="book.autor"
-                label="ID do Autor"
-                type="number"
-              ></v-text-field>
+                :items="authors"
+                item-text="nome"
+                item-value="_id"
+                label="Autor"
+              ></v-select>
             </v-col>
           </v-row>
         </v-container>
@@ -65,6 +67,7 @@ export default {
   data() {
     return {
       dialog: false,
+      authors: [],
       book: this.defaultBook(),
     };
   },
@@ -100,6 +103,11 @@ export default {
       this.dialog = false;
       this.book = this.defaultBook();
     },
+  },
+  created() {
+    BookService.getAuthors().then((response) => {
+      this.authors = response.data;
+    });
   },
 };
 </script>

@@ -47,11 +47,14 @@
               <span v-if="!editing">{{
                 book.autor ? book.autor.nome : "Autor não disponível"
               }}</span>
-              <v-text-field
+              <v-select
                 v-else
                 v-model="editedBook.autor"
-                label="ID do Autor"
-              ></v-text-field>
+                :items="authors"
+                item-text="nome"
+                item-value="_id"
+                label="Autor"
+              ></v-select>
             </v-col>
           </v-row>
         </v-container>
@@ -68,6 +71,8 @@
 </template>
 
 <script>
+import BookService from "@/services/BookService.js";
+
 export default {
   props: {
     book: {
@@ -81,6 +86,7 @@ export default {
   },
   data() {
     return {
+      authors: [],
       editedBook: { ...this.book },
       editing: false,
     };
@@ -110,6 +116,11 @@ export default {
     toggleEditing() {
       this.editing = !this.editing;
     },
+  },
+  created() {
+    BookService.getAuthors().then((response) => {
+      this.authors = response.data;
+    });
   },
 };
 </script>

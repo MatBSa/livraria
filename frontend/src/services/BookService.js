@@ -26,4 +26,7 @@ export default {
   deleteBook(id) {
     return apiClient.delete(`/livros/remover/${id}`)
   },
+  getAuthors() {
+    return apiClient.get('/autores')
+  },
 }
