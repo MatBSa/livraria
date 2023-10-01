@@ -43,6 +43,15 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
+              <v-subheader>Autor:</v-subheader>
+              <span v-if="!editing">{{
+                book.autor ? book.autor.nome : "Autor não disponível"
+              }}</span>
+              <v-text-field
+                v-else
+                v-model="editedBook.autor"
+                label="ID do Autor"
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>

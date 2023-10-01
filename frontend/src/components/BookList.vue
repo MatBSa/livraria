@@ -3,7 +3,7 @@
     <v-row>
       <v-col
         v-for="(book, index) in books"
-        :key="book.id"
+        :key="book._id"
         cols="12"
         sm="6"
         md="4"
@@ -22,7 +22,10 @@
           </v-tooltip>
           <v-card-subtitle>{{ book.editora }}</v-card-subtitle>
           <v-card-text class="flex-grow-1">
-            <p><strong>Preço:</strong> {{ book.preco }}</p>
+            <p>
+              <strong>Autor:</strong>
+              {{ book.autor ? book.autor.nome : "Autor não disponível" }}
+            </p>
             <p><strong>Páginas:</strong> {{ book.paginas }}</p>
           </v-card-text>
           <v-card-actions class="mt-auto">

@@ -12,15 +12,15 @@ export default {
     return apiClient.get('/livros')
   },
   getBook(id) {
-    return apiClient.get('/livros/buscar/' + id)
+    return apiClient.get(`/livros/buscar/${id}`)
   },
   postBook(book) {
     return apiClient.post('/livros/cadastrar', book)
   },
   putBook(id, book) {
-    return apiClient.put('/livros/atualizar/' + id, book)
+    return apiClient.put(`/livros/atualizar/${id}`, book)
   },
   deleteBook(id) {
-    return apiClient.delete('/livros/remover/' + id)
+    return apiClient.delete(`/livros/remover/${id}`)
   },
 }
