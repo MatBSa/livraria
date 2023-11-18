@@ -90,7 +90,7 @@ describe('LivroController', () => {
       body: { titulo: novoTitulo }
     };
 
-    await LivroController.atualizarLivroPorId(req, res); // Corrigido o nome do método
+    await LivroController.atualizarLivroPorId(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(
@@ -114,7 +114,7 @@ describe('LivroController', () => {
 
     const req = { params: { id: livroCriado._id } };
 
-    await LivroController.removerLivroPorId(req, res); // Corrigido o nome do método
+    await LivroController.removerLivroPorId(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(

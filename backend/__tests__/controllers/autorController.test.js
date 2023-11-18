@@ -84,7 +84,7 @@ describe('AutorController', () => {
       body: { nome: novoNome }
     };
 
-    await AutorController.atualizarAutorPorId(req, res); // Corrigido o nome do método
+    await AutorController.atualizarAutorPorId(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(
@@ -107,7 +107,7 @@ describe('AutorController', () => {
 
     const req = { params: { id: autorCriado._id } };
 
-    await AutorController.removerAutorPorId(req, res); // Corrigido o nome do método
+    await AutorController.removerAutorPorId(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(
