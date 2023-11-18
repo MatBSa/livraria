@@ -49,4 +49,33 @@ describe('Autores Routes', () => {
     expect(response.body.message).toBe('Cadastrado com sucesso');
     expect(response.body.livro.nome).toBe('Novo Autor');
   });
+
+  it('Deve atualizar um autor com sucesso', async () => {
+    const autorCriado = await Autor.create({
+      nome: 'Autor de Teste 3',
+      nacionalidade: 'Testelandia',
+    });
+
+    const novoNome = 'Autor Atualizado';
+
+    const response = await request(app)
+      .put(`/autores/atualizar/${autorCriado._id}`)
+      .send({ nome: novoNome });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Autor atualizado');
+  });
+
+  it('Deve remover um autor com sucesso', async () => {
+    const autorCriado = await Autor.create({
+      nome: 'Autor de Teste 4',
+      nacionalidade: 'Testelandia',
+    });
+
+    const response = await request(app)
+      .delete(`/autores/remover/${autorCriado._id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Autor removido com sucesso');
+  });
 });

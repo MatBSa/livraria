@@ -65,4 +65,55 @@ describe('AutorController', () => {
       })
     );
   });
+
+  it('Deve atualizar um autor com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    const autorCriado = await Autor.create({
+      nome: 'Autor de Teste 3',
+      nacionalidade: 'Testelandia',
+    });
+
+    const novoNome = 'Autor Atualizado';
+
+    const req = {
+      params: { id: autorCriado._id },
+      body: { nome: novoNome }
+    };
+
+    await AutorController.atualizarAutorPorId(req, res); // Corrigido o nome do método
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: 'Autor atualizado',
+      })
+    );
+  });
+
+  it('Deve remover um autor com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    const autorCriado = await Autor.create({
+      nome: 'Autor de Teste 4',
+      nacionalidade: 'Testelandia',
+    });
+
+    const req = { params: { id: autorCriado._id } };
+
+    await AutorController.removerAutorPorId(req, res); // Corrigido o nome do método
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: 'Autor removido com sucesso',
+      })
+    );
+  });
 });

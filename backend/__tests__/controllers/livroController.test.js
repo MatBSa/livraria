@@ -71,5 +71,56 @@ describe('LivroController', () => {
     );
   });
 
-  // ... Outros testes para os métodos restantes do LivroController
+  it('Deve atualizar um livro com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    const livroCriado = await Livro.create({
+      titulo: 'Livro de Teste 3',
+      editora: 'Editora de Teste',
+      paginas: 300,
+    });
+
+    const novoTitulo = 'Livro Atualizado';
+
+    const req = {
+      params: { id: livroCriado._id },
+      body: { titulo: novoTitulo }
+    };
+
+    await LivroController.atualizarLivroPorId(req, res); // Corrigido o nome do método
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: 'Livro atualizado',
+      })
+    );
+  });
+
+  it('Deve remover um livro com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    const livroCriado = await Livro.create({
+      titulo: 'Livro de Teste 4',
+      editora: 'Editora de Teste',
+      paginas: 400,
+    });
+
+    const req = { params: { id: livroCriado._id } };
+
+    await LivroController.removerLivroPorId(req, res); // Corrigido o nome do método
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: 'Livro removido com sucesso',
+      })
+    );
+  });
 });
