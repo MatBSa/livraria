@@ -18,7 +18,7 @@
               <v-row>
                 <v-col>
                   <v-subheader>Editora:</v-subheader>
-                  <span v-if="!editing">{{ book.editora }}</span>
+                  <span v-if="!editing">{{ book?.editora }}</span>
                   <v-text-field
                     id="editebook_publisher_id"
                     v-else
@@ -28,7 +28,7 @@
                 </v-col>
                 <v-col>
                   <v-subheader>Preço:</v-subheader>
-                  <span v-if="!editing">{{ book.preco }}</span>
+                  <span v-if="!editing">{{ book?.preco }}</span>
                   <v-text-field
                     id="editbook_value_id"
                     v-else
@@ -38,7 +38,7 @@
                 </v-col>
                 <v-col>
                   <v-subheader>Páginas:</v-subheader>
-                  <span v-if="!editing">{{ book.paginas }}</span>
+                  <span v-if="!editing">{{ book?.paginas }}</span>
                   <v-text-field
                     id="editbook_pages_id"
                     v-else
@@ -49,7 +49,7 @@
               </v-row>
               <v-subheader>Autor:</v-subheader>
               <span v-if="!editing">{{
-                book.autor ? book.autor.nome : "Autor não disponível"
+                book?.autor ? book?.autor.nome : "Autor não disponível"
               }}</span>
               <v-select
                 id="editbook_author_id"
