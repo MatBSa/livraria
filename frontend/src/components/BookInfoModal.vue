@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="internalDialog" max-width="500">
     <v-card>
-      <v-card-title class="headline">{{
+      <v-card-title id="modal_title_id" class="headline">{{
         editing ? "Editar Livro" : "Detalhes do Livro"
       }}</v-card-title>
 
@@ -10,6 +10,7 @@
           <v-row>
             <v-col>
               <v-text-field
+                id="editebook_title_id"
                 v-if="editing"
                 v-model="editedBook.titulo"
                 label="Título"
@@ -19,6 +20,7 @@
                   <v-subheader>Editora:</v-subheader>
                   <span v-if="!editing">{{ book.editora }}</span>
                   <v-text-field
+                    id="editebook_publisher_id"
                     v-else
                     v-model="editedBook.editora"
                     label="Editora"
@@ -28,6 +30,7 @@
                   <v-subheader>Preço:</v-subheader>
                   <span v-if="!editing">{{ book.preco }}</span>
                   <v-text-field
+                    id="editbook_value_id"
                     v-else
                     v-model="editedBook.preco"
                     label="Preço"
@@ -37,6 +40,7 @@
                   <v-subheader>Páginas:</v-subheader>
                   <span v-if="!editing">{{ book.paginas }}</span>
                   <v-text-field
+                    id="editbook_pages_id"
                     v-else
                     v-model="editedBook.paginas"
                     label="Páginas"
@@ -48,6 +52,7 @@
                 book.autor ? book.autor.nome : "Autor não disponível"
               }}</span>
               <v-select
+                id="editbook_author_id"
                 v-else
                 v-model="editedBook.autor"
                 :items="authors"
@@ -61,8 +66,8 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="blue darken-1" text @click="closeDialog">Cancelar</v-btn>
-        <v-btn color="blue darken-1" text @click="toggleEditing">{{
+        <v-btn id="cancel_id" color="blue darken-1" text @click="closeDialog">Cancelar</v-btn>
+        <v-btn id="save_id" color="blue darken-1" text @click="toggleEditing">{{
           editing ? "Salvar" : "Editar"
         }}</v-btn>
       </v-card-actions>

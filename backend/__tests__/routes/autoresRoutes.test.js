@@ -1,25 +1,52 @@
-import request from 'supertest'
-import app from '../../app.js'
+import express from 'express';
+import request from 'supertest';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import routes from '../../src/routes/index.js';
+import { autor as Autor } from '../../src/models/Autor.js';
 
-describe('autoresRoutes', () => {
-  describe('GET /autores', () => {
-    it('should return a list of authors', async () => {
-      const response = await request(app).get('/autores')
-      expect(response.status).toBe(200)
-      expect(response.body).toEqual([
-        {
-          _id: '6511f1465fe85dd6c5ca04e9',
-          nome: 'Neil Gaiman',
-          nacionalidade: 'estadunidense',
-        },
-        {
-          _id: '6511fa63c6952f71faa70184',
-          nome: 'Stephen Burnett',
-          nacionalidade: 'estadunidense',
-        },
-      ])
-    })
-  })
+dotenv.config();
 
-  // Implemente testes para outras rotas de autores
-})
+const app = express();
+app.use(express.json());
+routes(app);
+
+describe('Autores Routes', () => {
+  beforeAll(async () => {
+    const username = process.env.DB_USERNAME
+    const password = process.env.DB_PASSWORD
+    const dbUrl = process.env.DB_URL
+
+    await mongoose.connect(`mongodb+srv://${username}:${password}@${dbUrl}`)
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
+
+  it('Deve listar todos os autores', async () => {
+    await Autor.create({
+      nome: 'Autor de Teste',
+      nacionalidade: 'Testelandia',
+    });
+
+    const response = await request(app).get('/autores');
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThan(0);
+  });
+
+  it('Deve cadastrar um novo autor', async () => {
+    const novoAutor = {
+      nome: 'Novo Autor',
+      nacionalidade: 'Testelandia',
+    };
+
+    const response = await request(app)
+      .post('/autores/cadastrar')
+      .send(novoAutor);
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Cadastrado com sucesso');
+    expect(response.body.livro.nome).toBe('Novo Autor');
+  });
+});

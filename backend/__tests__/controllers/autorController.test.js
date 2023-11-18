@@ -1,24 +1,68 @@
-import AutorController from '../../controllers/autorController.js'
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { autor as Autor } from '../../src/models/Autor.js';
+import AutorController from '../../src/controllers/autorController.js';
+
+dotenv.config();
 
 describe('AutorController', () => {
-  describe('listarAutores', () => {
-    it('should return a list of authors', async () => {
-      // Simule a função de listarAutores e verifique a saída
-      const autores = await AutorController.listarAutores()
-      expect(autores).toEqual([
-        {
-          _id: '6511f1465fe85dd6c5ca04e9',
-          nome: 'Neil Gaiman',
-          nacionalidade: 'estadunidense',
-        },
-        {
-          _id: '6511fa63c6952f71faa70184',
-          nome: 'Stephen Burnett',
-          nacionalidade: 'estadunidense',
-        },
-      ])
-    })
-  })
+  beforeAll(async () => {
+    const username = process.env.DB_USERNAME
+    const password = process.env.DB_PASSWORD
+    const dbUrl = process.env.DB_URL
 
-  // Implemente testes para outras funções do AutorController
-})
+    await mongoose.connect(`mongodb+srv://${username}:${password}@${dbUrl}`)
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
+
+  it('Deve listar todos os autores com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    await Autor.create({
+      nome: 'Autor de Teste',
+      nacionalidade: 'Testelandia',
+    });
+
+    await AutorController.listarAutores({}, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          nome: 'Autor de Teste',
+          nacionalidade: 'Testelandia',
+        }),
+      ])
+    );
+  });
+
+  it('Deve listar um autor por ID com sucesso', async () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+
+    const autorCriado = await Autor.create({
+      nome: 'Autor de Teste 2',
+      nacionalidade: 'Testelandia',
+    });
+
+    const req = { params: { id: autorCriado._id } };
+
+    await AutorController.listarAutorPorId(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        nome: 'Autor de Teste 2',
+        nacionalidade: 'Testelandia',
+      })
+    );
+  });
+});

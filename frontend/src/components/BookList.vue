@@ -12,7 +12,7 @@
         <v-card :id="`book-card-${index}`" class="book-card">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
-              <v-card-title class="title" v-bind="attrs" v-on="on">{{
+              <v-card-title id="card_title" class="title" v-bind="attrs" v-on="on">{{
                 book.titulo.length > 63
                   ? book.titulo.slice(0, 63) + "..."
                   : book.titulo
@@ -20,13 +20,13 @@
             </template>
             <span>{{ book.titulo }}</span>
           </v-tooltip>
-          <v-card-subtitle>{{ book.editora }}</v-card-subtitle>
+          <v-card-subtitle id="book_publisher">{{ book.editora }}</v-card-subtitle>
           <v-card-text class="flex-grow-1">
-            <p>
+            <p id="book_author_id">
               <strong>Autor:</strong>
               {{ book.autor ? book.autor.nome : "Autor não disponível" }}
             </p>
-            <p><strong>Páginas:</strong> {{ book.paginas }}</p>
+            <p><strong id="book_pages_id">Páginas:</strong> {{ book.paginas }}</p>
           </v-card-text>
           <v-card-actions class="mt-auto">
             <v-btn

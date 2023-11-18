@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px" @click:outside="resetForm">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="green" dark v-bind="attrs" v-on="on">Novo Livro</v-btn>
+      <v-btn id="new_book_id" color="green" dark v-bind="attrs" v-on="on">Novo Livro</v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -12,6 +12,7 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                id="title_id"
                 v-model="book.titulo"
                 label="Título"
                 required
@@ -19,12 +20,14 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
+                id="publishing_id"
                 v-model="book.editora"
                 label="Editora"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
+                id="pages_id"
                 v-model.number="book.paginas"
                 label="Páginas"
                 type="number"
@@ -32,6 +35,7 @@
             </v-col>
             <v-col cols="12">
               <v-select
+                id="select_authors_id"
                 v-model="book.autor"
                 :items="authors"
                 item-text="nome"
@@ -44,8 +48,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="resetForm">Fechar</v-btn>
-        <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
+        <v-btn id="close_id" color="blue darken-1" text @click="resetForm">Fechar</v-btn>
+        <v-btn id="save_id" color="blue darken-1" text @click="save">Salvar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

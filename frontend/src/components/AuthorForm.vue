@@ -12,6 +12,7 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                id="author_name_id"
                 v-model="author.nome"
                 label="Nome"
                 required
@@ -19,6 +20,7 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
+                id="author_nationality_id"
                 v-model="author.nacionalidade"
                 label="Nacionalidade"
               ></v-text-field>
@@ -28,8 +30,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="resetForm">Fechar</v-btn>
-        <v-btn color="blue darken-1" text @click="saveAuthor">Salvar</v-btn>
+        <v-btn id="close_id" color="blue darken-1" text @click="resetForm">Fechar</v-btn>
+        <v-btn id="save_id" color="blue darken-1" text @click="saveAuthor">Salvar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
